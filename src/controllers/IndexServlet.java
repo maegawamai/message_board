@@ -36,7 +36,10 @@ public class IndexServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();//DBの神誕生（DAOみたいなもの）
 
         List<Message> messages = em.createNamedQuery("getAllMessages", Message.class).getResultList();
-        /*箱=誰かが作ったメソッド（あだ名,Messageクラスのインスタンスに置き換え（OAラッピング））*/
+        /*getAllMessageをcreateNamedQueryメソッドの引数に指定することで、
+         * DBへの問い合わせを実行。問い合わせ結果をgetResultList()をつかって
+         * リスト形式で取得する。DBに保存されたデータはhibernateによって
+         * 自動でMessageクラスのオブジェクトになってこのリストの中に格納される*/
 
         em.close();
         request.setAttribute("messages", messages);
