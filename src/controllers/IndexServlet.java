@@ -33,9 +33,10 @@ public class IndexServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        EntityManager em = DBUtil.createEntityManager();
+        EntityManager em = DBUtil.createEntityManager();//DBの神誕生（DAOみたいなもの）
 
         List<Message> messages = em.createNamedQuery("getAllMessages", Message.class).getResultList();
+        /*箱=誰かが作ったメソッド（あだ名,Messageクラスのインスタンスに置き換え（OAラッピング））*/
 
         em.close();
         request.setAttribute("messages", messages);

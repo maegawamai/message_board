@@ -1,5 +1,5 @@
 package utils;
-
+//DAO JDBC3の2.4で作成したモノと同じ
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

@@ -9,12 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
+//モデル（DTO）の作成。必要なデータの格納
 @Entity
 @NamedQueries({
     @NamedQuery(
-        name = "getAllMessages",
-        query = "SELECT m FROM Message AS m ORDER BY m.id DESC"
+        name = "getAllMessages",//あだ名
+        query = "SELECT m FROM Message AS m ORDER BY m.id DESC"//あだ名に代入する命令（JPQL）
     )
 })
 @Table(name = "messages")
@@ -26,6 +26,8 @@ public class Message {
 
     @Column(name = "title", length = 255, nullable = false)
     private String title;
+//nullable=falseなのでnullを許容しない(必ずいれること)
+
 
     @Column(name = "content", length = 255, nullable = false)
     private String content;
