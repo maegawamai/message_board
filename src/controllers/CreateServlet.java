@@ -32,24 +32,25 @@ public class CreateServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String _token = request.getParameter("_token");
+        //CSRF対策のチェック↓
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
             em.getTransaction().begin();
 
             Message m = new Message();
-
+            //タイトル
             String title = request.getParameter("title");
             m.setTitle(title);
-
+            //内容
             String content = request.getParameter("content");
             m.setContent(content);
-
+            //現在日時
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            m.setCreated_at(currentTime);
-            m.setUpdated_at(currentTime);
+            m.setCreated_at(currentTime);//作成日時
+            m.setUpdated_at(currentTime);//更新日時
 
             em.persist(m);
-            em.getTransaction().commit();
+            em.getTransaction().commit();//コミット
             em.close();
 
             response.sendRedirect(request.getContextPath() + "/index");

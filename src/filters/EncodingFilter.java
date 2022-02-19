@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-
+//文字化け防止のフィルタ.lesson11と同じ
 /**
  * Servlet Filter implementation class EncodingFilter
  */

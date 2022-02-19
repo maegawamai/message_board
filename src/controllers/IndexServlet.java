@@ -1,5 +1,5 @@
 package controllers;
-
+//index(一覧表示)
 import java.io.IOException;
 import java.util.List;
 
@@ -43,8 +43,9 @@ public class IndexServlet extends HttpServlet {
 
         em.close();
         request.setAttribute("messages", messages);
-
+        //リクエストスコープにセット
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/messages/index.jsp");
+        //ビューとしてIndex.jspの呼び出し
         rd.forward(request, response);
  }
 

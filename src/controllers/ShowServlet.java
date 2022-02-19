@@ -16,6 +16,7 @@ import utils.DBUtil;
  * Servlet implementation class ShowServlet
  */
 @WebServlet("/show")
+//詳細画面
 public class ShowServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -31,9 +32,11 @@ public class ShowServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       //Entityanagerのオブジェクトを生成
         EntityManager em = DBUtil.createEntityManager();
 
         // 該当のIDのメッセージ1件のみをデータベースから取得
+        //テーブル内のIDを用いて検索するfind()メソッドが用意されているfind(DTOクラス名、テーブル検索時のID値)
         Message m = em.find(Message.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
