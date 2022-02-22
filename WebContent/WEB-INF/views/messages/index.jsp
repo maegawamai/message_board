@@ -9,6 +9,11 @@
     <%-- paramタグの中がapp.jspの$param.contentのところにあてはまる--%>
     <c:param name="content">
 
+        <c:if test="${flush != null }">
+            <div id="flush_success">
+                <c:out value="${flush}"></c:out>
+            </div>
+        </c:if>
         <h2>メッセージ一覧</h2>
         <ul>
             <%--forEachは繰り返し送られてきたmessageを1件ずつ取り出して処理 --%>
