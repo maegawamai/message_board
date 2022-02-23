@@ -13,9 +13,13 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({
     @NamedQuery(
-        name = "getAllMessages",//あだ名
-        query = "SELECT m FROM Message AS m ORDER BY m.id DESC"//あだ名に代入する命令（JPQL）
-    )
+            name = "getAllMessages",
+            query = "SELECT m FROM Message AS m ORDER BY m.id DESC"
+            ),
+    @NamedQuery(
+            name = "getMessagesCount",
+            query = "SELECT COUNT(m) FROM Message AS m"
+            )
 })
 @Table(name = "messages")
 public class Message {
