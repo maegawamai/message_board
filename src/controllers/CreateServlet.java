@@ -2,8 +2,10 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.Message;
 import utils.DBUtil;
+import validators.MessageValidator;
 
 /**
  * Servlet implementation class CreateServlet
@@ -51,14 +54,29 @@ public class CreateServlet extends HttpServlet {
             m.setCreated_at(currentTime);//作成日時
             m.setUpdated_at(currentTime);//更新日時
 
-            //データベースに保存
-            em.persist(m);
-            em.getTransaction().commit();
-            request.getSession().setAttribute("flush", "登録が完了しました");//フラッシュで追記
-            em.close();
+            //バリで―を実行してエラーがあったら新規登録のフォームに戻る
+            List<String> errors = MessageValidator.validate(m);
+            if (errors.size() > 0) {
+                em.close();
+                //フォームに初期値を設定、さらにエラーメッセージを送る
+                request.setAttribute("_tooken", request.getSession().getId());
+                request.setAttribute("message", m);
+                request.setAttribute("errors", errors);
 
-            response.sendRedirect(request.getContextPath() + "/index");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/messages/new.jsp");
+                rd.forward(request, response);
+            } else {
+
+                //データベースに保存
+                em.persist(m);
+                em.getTransaction().commit();
+                request.getSession().setAttribute("flush", "登録が完了しました");//フラッシュで追記
+                em.close();
+
+                //indexのページにリダイレクト
+                response.sendRedirect(request.getContextPath() + "/index");
+            }
         }
-    }
 
+    }
 }
